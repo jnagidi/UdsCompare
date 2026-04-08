@@ -1,3 +1,6 @@
+#' @import data.table
+#' 
+
 make_participant_compare_table <- function(
     .data_id,
     .form,

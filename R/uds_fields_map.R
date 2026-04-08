@@ -1,3 +1,6 @@
+#' @import data.table
+#' 
+#' 
 uds_fields_of_interest_path <- function() {
   # Preferred: if later moved into package extdata
   p1 <- system.file("extdata", "UDSv4_fields_of_interest_updated.rds", package = "UdsCompare")

@@ -114,12 +114,12 @@ redcap_process <- function(){
   .data[,Age := make_age(.SD, .today=FALSE),by=id_var]
   
   #Make race
-  .data[,race := make_race_var(.SD, .type = "long"),by=id_var]
+  #.data[,race := make_race_var(.SD, .type = "long"),by=id_var]
   
   .labels <- gsub("\\.{3}\\d+$", "", .labels)
   
   #Do a fill down on whatever is left, currently only education and race from A1 based on the new processing done by visit_read_in() in ADRCDash:
-  .data <- ADRCDash:::fill_down_rows(.data, dict = c("birthsex", "educ", "race"))
+  .data <- ADRCDash:::fill_down_rows(.data, dict = c("birthsex", "educ"))
   
   return(list(data = as.data.frame(.data), labels = .labels))
 }

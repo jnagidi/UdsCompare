@@ -6,11 +6,11 @@
 #Static variables
 id_var <- c("adc_sub_id")
 event_var <- c("redcap_repeat_instance")
-demog_cols <- c("Age", "race", "birthsex", "educ")
+demog_cols <- c("Age", "birthsex", "educ")
 reviewer_cols <- c("frmdated1a_rev1", "frmdated1a_rev2", "initialsd1a_rev1", "initialsd1a_rev2")
 
 #Dictionaries for build_header
-header_columns_dict <- list(col_var = c(id_var, event_var, "Age", "race", "birthsex", "educ"),
+header_columns_dict <- list(col_var = c(id_var, event_var, "Age", "birthsex", "educ"),
                             numeric_var = c(rep(FALSE, 5), TRUE))
 
 race_recode <- c("Black or African American" = "B/AA", "White" = "W")
