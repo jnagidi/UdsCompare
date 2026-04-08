@@ -1,0 +1,145 @@
+.main-header{
+  max-height: 90px;
+}
+
+.main-header .logo {
+  background-color: #1F6A53 !important;
+  font-size: 36px;
+  height: 90px;
+  min-width: 350px;
+  font-family: "Arial" !important;
+}
+
+.main-header .navbar .sidebar-toggle:hover{
+  background-color: #2D9977!important;
+}
+
+.sidebar-toggle {
+  height: 90px;
+  padding-top: 1px !important;
+}
+
+.main-header .navbar {
+  background-color: #1F6A53 !important;
+  min-height: 90px !important;
+  font-size: 24px !important;
+  font-family: "Arial" !important;
+ }
+
+
+.main-sidebar {
+  background-color: #8DBA39 !important;
+  min-width: 350px !important;
+  font-size: 24px !important;
+  font-family: "Arial" !important;
+}
+
+.content-wrapper, .right-side{
+  background-color: #FFFFFF !important;
+}
+
+.skin-blue .sidebar-menu > li > .treeview-menu {
+  background-color: #1F6A53 !important;
+}
+
+.control-label {
+  color: #FFFFFF !important;
+  font-size: 20px !important;
+  font-family: "Arial" !important;
+}
+
+.sidebar-menu .treeview-menu > li > a {
+  color: #FFFFFF !important;
+  font-size: 20px !important;
+  font-family: "Arial" !important;
+}
+
+
+.skin-blue .sidebar a {
+  color: #FFFFFF !important;
+}
+
+
+
+
+/*Checkbox details in header */
+
+.pretty {
+	top: 20px !important;
+}
+
+.pretty .state label {
+	font-size: 24px !important; 
+	color: white !important;
+}
+
+.pretty.p-icon .state .icon::before{
+	background-color: grey !important;
+}
+
+
+
+/*Menu for study selection*/
+
+
+.form-group.shiny-input-container.form-horizontal .control-label.col-sm-2{
+  font-size: 24px !important;
+  top: 13px !important;
+  left: 400px !important;
+  font-weight: normal !important;
+  font-family: "Arial" !important;
+ 
+}
+
+.form-group.shiny-input-container.form-horizontal .col-sm-10{
+  top: 18px !important;
+  left: 425px !important;
+  
+}
+
+.btn-default{
+  background-color: #FFFFFF !important;
+}
+
+.dropdown-menu.inner .selected.active .dropdown-item.active.selected{
+  background-color: #8dba39 !important;
+}
+
+/* Style for the Referral Selection on the dropdown menu */
+
+.dropdown-menu {
+  font-size: 16px !important;
+}
+
+.dropdown-menu.inner > li {
+  margin-top: 10px !important;
+}
+
+.dropdown-menu.inner > li > a {
+  color: black !important;
+}
+
+.filter-option-inner {
+  font-size: 16px !important;
+}
+
+
+
+/*Tabs for Component Completion plots */
+
+.nav.nav-tabs > li {
+  font-size: 20px !important
+}
+
+
+.bold {
+  font-weight:bold;
+}
+
+th.dt-center, td.dt-center { text-align: center; }
+
+.header_style {
+  font-size: 42px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+}

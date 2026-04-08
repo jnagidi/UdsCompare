@@ -1,0 +1,195 @@
+/*
+this sheet is for dashboard specific CSS
+the majority of the UAB theme is controlled by write_uab_bs4_theme()
+see utils_misc_fun.R for color palette
+*/
+
+/*** DASHBOARD SPECIFIC ***/
+/* home page */
+#landing-page {
+  max-width: 900px;
+}
+#landing-page img {
+  max-width: 90%;
+  border-radius: 0.5em;
+}
+#landing-page h3 {
+  max-width: 90%;
+  margin-top: 1em;
+}
+#landing-page .page-summary-container {
+  max-width: 90%;
+}
+#landing-page .page-summary p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+}
+#landing-page .page-summary p:first-child {
+  font-size: 4rem;
+  font-weight: 500;
+  color: #144B39;
+}
+
+/* Layout fixes */
+.content-wrapper {
+  margin-left: 350px !important;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f4f6f9;
+}
+
+/* Sidebar styling */
+.sidebar {
+  position: fixed !important;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Comparison tables and tabsets */
+.comparison-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.visit-tabs {
+  margin-top: 20px;
+}
+
+.visit-tabs .nav-tabs {
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  display: flex;
+  gap: 15px;
+}
+
+.visit-tabs .nav-link {
+  margin-right: 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #495057;
+  border: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.visit-tabs .nav-link:hover {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.visit-tabs .nav-link.active {
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+  background-color: transparent;
+}
+
+.tab-content {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Table styling */
+.comparison-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  background-color: #fff;
+  table-layout: fixed;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.comparison-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #495057;
+}
+
+.comparison-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.comparison-table tr:hover {
+  background-color: #f1f3f5;
+}
+
+/* DataTables specific styling for better column distribution */
+.dataTables_wrapper .dataTable {
+  width: 100% !important;
+  table-layout: fixed;
+}
+
+.dataTables_wrapper .dataTable th,
+.dataTables_wrapper .dataTable td {
+  padding: 12px 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Specific column width adjustments for comparison tables */
+.dataTables_wrapper .dataTable th:nth-child(1),
+.dataTables_wrapper .dataTable td:nth-child(1) {
+  width: 15% !important;
+  min-width: 120px;
+}
+
+.dataTables_wrapper .dataTable th:nth-child(2),
+.dataTables_wrapper .dataTable td:nth-child(2) {
+  width: 45% !important;
+  min-width: 200px;
+}
+
+.dataTables_wrapper .dataTable th:nth-child(3),
+.dataTables_wrapper .dataTable td:nth-child(3),
+.dataTables_wrapper .dataTable th:nth-child(4),
+.dataTables_wrapper .dataTable td:nth-child(4) {
+  width: 20% !important;
+  min-width: 100px;
+}
+
+/* Center alignment for reviewer columns */
+.dt-center {
+  text-align: center !important;
+}
+
+/* Ensure text wrapping in question column */
+.dataTables_wrapper .dataTable td:nth-child(2) {
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Box styling */
+.box {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.box-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.box-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #495057;
+}
