@@ -15,9 +15,13 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
     visit_token <- Sys.getenv(token)
 
     visit_curr <- REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, raw_or_label = "label", guess_type = use_redcap_factors)$data
-    if(!(exists("labels_loaded"))) {labels_curr <- colnames(REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, records=1, raw_or_label_headers = "label")$data)
-    names(labels_curr) <- colnames(visit_curr)
+    if(!(exists("labels_loaded"))) {
+      labels_curr <- colnames(REDCapR::redcap_read(redcap_uri = "https://redcap.dom.uab.edu/api/", token = visit_token, raw_or_label_headers = "label")$data)
+      names(labels_curr) <- colnames(visit_curr)
+      
     } else labels_curr <- labels_loaded
+    # Older cached labels were keyed with an `_entry` suffix; normalize to raw column names.
+    #if(!is.null(names(labels_curr))) names(labels_curr) <- gsub("_entry$", "", names(labels_curr))
     visit_curr <- visit_curr[,colnames(visit_curr) %in% names(labels_curr)]
     
     #Coerce to data.table for populating
@@ -100,7 +104,7 @@ redcap_process <- function(){
   #.data <- ADRCDash:::redcap_read_in(simple = TRUE, synth = FALSE, use_spinner = FALSE, use_redcap_factors = TRUE)#,
   #export_forms_secondary = c("subject_info", "clinical_consensus_reviewer_1", "clinical_consensus_reviewer_2")
   #.data <- ADRCDash:::visit_read_in(token = "REDCAP_NACC_API_NEW", subtable_dict = NULL, .type = "nacc", synth=FALSE, use_redcap_factors = TRUE)[["visits"]]
-  .data_list <- visit_read_in_alt(token = "UDS4_API", dict = uds4_redcap_dict, subtable_dict = NULL, .type = "nacc", synth=FALSE, use_redcap_factors = TRUE)
+  .data_list <- visit_read_in_alt(token = "UDS4_DMSC", dict = uds4_redcap_dict, subtable_dict = NULL, .type = "nacc", synth=FALSE, use_redcap_factors = TRUE)
   .data <- .data_list[["visits"]]
   .labels <- .data_list[["labels"]]
   
@@ -189,8 +193,8 @@ missing_row_dict = list(c("frmdated1a_rev1", "frmdated1a_rev2"),
 #Updated UDS4 dictionary
 uds4_redcap_dict <- list(adrc_key = "adc_sub_id",
                          redcap_key = "record_id",
-                         subj_event = c("dmsc_only_arm_1", "DMSC Only"),
-                         visit_event = c("dmsc_only_arm_1", "DMSC Only"),
+                         subj_event = c("udsvisit_arm_1", "udsvisit"),
+                         visit_event = c("udsvisit_arm_1", "udsvisit"),
                          event_col = "redcap_event_name",
                          visit_col = "redcap_repeat_instance",
                          date_valid = "frmdatea1",
