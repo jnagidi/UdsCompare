@@ -43,7 +43,7 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
           build-args: |
             GITHUB_PAT=${{ secrets.PAT_GITHUB }}
-            UDS4_API=${{ secrets.UDS4_DMSC }}
+            UDS4_DMSC=${{ secrets.UDS4_DMSC }}
 
       - name: Verify pushed image
         run: |
