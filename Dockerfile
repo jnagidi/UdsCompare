@@ -29,15 +29,17 @@ ARG GITHUB_PAT
 ENV GITHUB_PAT=${GITHUB_PAT}
 
 ARG UDS4_DMSC
-ENV UDS4_DMSC=$DMSC
+ENV UDS4_DMSC=$UDS4_DMSC
 
 WORKDIR /home/app
 
 COPY . /home/app
 
-RUN R -e "install.packages('renv', repos = 'https://packagemanager.posit.co/cran/latest')"
-RUN R -e "renv::restore(confirm = FALSE)"
+RUN R -e "source('./renv/activate.R'); renv::restore(confirm = TRUE)"
+#RUN R -e "renv::restore(confirm = TRUE); print(renv::paths$library()); print(.libPaths()); renv::status()"
 
+
+# Establish ownership of the app for root
 RUN chown -R root:root /home/app
 
 EXPOSE 3838
