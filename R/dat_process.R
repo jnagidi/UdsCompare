@@ -67,7 +67,7 @@ visit_read_in_alt <- function(token, synth = FALSE, dict = NULL, subtable_dict =
     # }
     
     #Fill down the subject_info rows - this is all done by reference within fill_down_rows so we technically don't need to assign it
-    #visit_curr <- ADRCDash:::fill_down_rows(visit_curr, dict = subj_data_cols, fill_key = dict[["redcap_key"]])
+    visit_curr <- ADRCDash:::fill_down_rows(visit_curr, dict = subj_data_cols, fill_key = dict[["redcap_key"]])
     #visit_curr[, (subj_data_cols) := lapply(.SD, zoo::na.locf, na.rm = FALSE), by = eval(dict[["redcap_key"]]), .SDcols = subj_data_cols]
     
     #Finally, drop the undesired event rows and remove the annotation
@@ -114,8 +114,8 @@ redcap_process <- function(){
   #.data <- ADRCDash:::redcap_order_rows(.data)
   
   #Build age variable based on DoB
-  .data$birthmo <- as.numeric(as.character(gsub("(\\d+)(\\b ).*", "\\1", .data$birthmo)))
-  .data[,Age := make_age(.SD, .today=FALSE),by=id_var]
+  # .data$birthmo <- as.numeric(as.character(gsub("(\\d+)(\\b ).*", "\\1", .data$birthmo)))
+  # .data[,Age := make_age(.SD, .today=FALSE),by=id_var]
   
   #Make race
   #.data[,race := make_race_var(.SD, .type = "long"),by=id_var]
@@ -200,6 +200,9 @@ uds4_redcap_dict <- list(adrc_key = "adc_sub_id",
                          date_valid = "frmdatea1",
                          column_annotate = "_entry"
 )
+
+subj_data_cols <- c("adc_sub_id","adcid","ptid","birthmo", "birthyr", "raceaian", "raceasian", "raceblack", 
+                    "ethispanic", "racemena", "racenhpi", "racewhite", "birthsex", "educ")
 
 
 pull_id <- function(.dat, .id, .id_var = id_var){
