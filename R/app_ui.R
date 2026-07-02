@@ -109,6 +109,71 @@ app_ui <- function(request) {
             .dt-left { text-align: left !important; }
             .dt-center { text-align: center !important; }
             .comparison-container .form-group { margin-bottom: 0px; }
+            
+            /* Download controls row */
+            .comparison-controls {
+              display: flex;
+              gap: 16px;
+              align-items: flex-end;
+              flex-wrap: wrap;
+              padding: 4px 2px 12px 2px;
+              border-bottom: 1px solid #e0e0e0;
+              margin-bottom: 14px;
+            }
+            .comparison-controls .form-group { margin-bottom: 0; }
+            .btn-download-pdf {
+              height: 38px;
+              font-weight: 600;
+              letter-spacing: 0.02em;
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+            }
+            /* Print-only header — hidden on screen */
+            .pdf-print-header { display: none; }
+
+            /* ── Print styles ── */
+            @media print {
+              .main-sidebar,
+              .main-header,
+              .content-header,
+              .box-header,
+              .comparison-controls,
+              .nav-tabs { display: none !important; }
+
+              .content-wrapper { margin-left: 0 !important; }
+
+              .pdf-print-header {
+                display: block !important;
+                margin-bottom: 18px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid #333;
+              }
+              .pdf-print-header h3 { margin: 0 0 4px; font-size: 16pt; }
+              .pdf-print-header p  { margin: 0; font-size: 11pt; color: #444; }
+
+              .tab-pane:not(.active) { display: none !important; }
+
+              /* Remove scroll constraints so full table prints */
+              .dataTables_scrollBody {
+                overflow: visible !important;
+                max-height: none !important;
+                height: auto !important;
+              }
+              .dataTables_wrapper { overflow: visible !important; }
+
+              .card, .box {
+                border: none !important;
+                box-shadow: none !important;
+              }
+
+              @page { margin: 1.5cm; }
+            }
+          ")),
+          tags$script(HTML("
+            Shiny.addCustomMessageHandler('triggerPrint', function(msg) {
+              window.print();
+            });
           "))
         ),
         

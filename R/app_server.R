@@ -13,6 +13,7 @@ app_server <- function( input, output, session ) {
   # Hold selected participant data after "Get Data"
   data_id_rv <- reactiveVal(NULL)
   searched_rv <- reactiveVal(FALSE)
+  current_id_rv <- reactiveVal("")
   uds_fields <- load_uds_fields_of_interest()
   form_levels <- sort(unique(as.character(uds_fields$uds_form)))
   empty_form_table <- data.frame(
@@ -52,18 +53,34 @@ app_server <- function( input, output, session ) {
   
   # Initial UI (tabset of forms, empty/ready table)
   output$comparison_tables <- renderUI({
+    current_id <- current_id_rv()
     tabs <- lapply(form_levels, function(f) {
       tabPanel(title = toupper(f), value = toupper(f), DT::DTOutput(paste0("table_", f)))
     })
     tagList(
+      # Print-only header (hidden on screen via CSS, shown @media print)
       div(
-        style = "display:flex; gap: 12px; align-items: center; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 10px;",
+        class = "pdf-print-header",
+        tags$h3("ADRC UDS Data Comparison"),
+        if (nzchar(current_id))
+          tags$p(paste0("Participant ID: ", current_id))
+        else
+          NULL
+      ),
+      # Controls row: form picker + download button
+      div(
+        class = "comparison-controls",
         shiny::selectInput(
           inputId = "form_pick",
-          label = NULL,
+          label = "Select Form",
           choices = toupper(form_levels),
           selected = if ("a1" %in% form_levels) "A1" else if (length(form_levels) > 0) toupper(form_levels[[1]]) else NULL,
-          width = "160px"
+          width = "180px"
+        ),
+        shiny::actionButton(
+          inputId = "download_pdf",
+          label = tagList(shiny::icon("file-pdf"), "Download Report"),
+          class = "btn btn-danger btn-download-pdf"
         )
       ),
       do.call(
@@ -75,6 +92,7 @@ app_server <- function( input, output, session ) {
       )
     )
   })
+        
   for (f in form_levels) {
     local({
       ff <- f
@@ -93,6 +111,7 @@ app_server <- function( input, output, session ) {
     data_proc <- pull_id(data_curr, id_curr())
     data_id_rv(data_proc)
     searched_rv(TRUE)
+    current_id_rv(id_curr())
     
     # Default to a1 after loading (also applies after failed search)
     if ("a1" %in% form_levels) {
@@ -117,6 +136,11 @@ app_server <- function( input, output, session ) {
     }
   }, ignoreInit = TRUE)
   
+  
+  observeEvent(input$download_pdf, {
+    session$sendCustomMessage("triggerPrint", list())
+  })
+  
   # Render each form tab table from UDSv4_fields_of_interest.rds mapping
   for (f in form_levels) {
     local({
@@ -135,41 +159,5 @@ app_server <- function( input, output, session ) {
       }, options = build_participant_DT_options(), escape = FALSE)
     })
   }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  #So this kind of works but it only prints the final table - Better to just use the above tabsetPanel process
-  
-  # #Dynamically building out a variable number of tables requires some manipulation of renderUI
-  # output$comparison_tables <- 
-  #   renderUI({
-  #     
-  #     #Begin by using an lapply on an empty list that's as long as comparison_set / header_set
-  #     lapply(as.list(seq_along(comparison_set)), function(ii){
-  #       
-  #       #Build a Dummy ID for reference
-  #       tab_id <- paste0("DT", ii)
-  #       
-  #       #Pass the corresponding tableOutput to our primary output object
-  #       tableOutput(tab_id)
-  #       })
-  #     })
-  # 
-  # #Then step though and render the datatable appropriately
-  # for(ii in seq_along(comparison_set)){
-  #   tab_id <- paste0("DT", ii)
-  #   print(comparison_set[[ii]])
-  #   output[[tab_id]] <- renderTable(comparison_set[[ii]])
-  # }
-    
   
 }
